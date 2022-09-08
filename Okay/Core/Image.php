@@ -342,7 +342,7 @@ class Image
             return ExtenderFacade::execute(__METHOD__, false, func_get_args());
         }
 
-        $ch = curl_init($filename);
+        $ch = curl_init(str_replace (' ', '%20', $filename));
         curl_setopt($ch, CURLOPT_TIMEOUT, 1000);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_ENCODING, "");
