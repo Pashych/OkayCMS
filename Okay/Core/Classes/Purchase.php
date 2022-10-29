@@ -201,9 +201,14 @@ class Purchase
         foreach ($this->discounts as $discount){
             if (!isset($cart->total_purchases_discounts[$discount->sign])) {
                 $discountForTotal = (object)(array)$discount;
+                $discountForTotal->absoluteDiscount *= $this->amount;
+                $discountForTotal->priceBeforeDiscount *= $this->amount;
+                $discountForTotal->priceAfterDiscount *= $this->amount;
                 $cart->total_purchases_discounts[$discount->sign] = $discountForTotal;
             } else {
                 $cart->total_purchases_discounts[$discount->sign]->absoluteDiscount += $discount->absoluteDiscount;
+                $cart->total_purchases_discounts[$discount->sign]->priceBeforeDiscount += $discount->priceBeforeDiscount* $this->amount;
+                $cart->total_purchases_discounts[$discount->sign]->priceAfterDiscount += $discount->priceAfterDiscount* $this->amount;
             }
         }
         return ExtenderFacade::execute(__METHOD__, null, func_get_args());
