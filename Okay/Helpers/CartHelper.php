@@ -126,7 +126,13 @@ class CartHelper
         } else {
             $this->logger->error('File "design/' . $this->frontTemplateConfig->getTheme() . '/html/cart_purchases.tpl" not found');
         }
-
+        
+        if (is_file('design/' . $this->frontTemplateConfig->getTheme() . '/html/cart_purchases_order.tpl')) {
+            $result['cart_purchases_order'] = $this->design->fetch('cart_purchases_order.tpl');
+        } else {
+            $this->logger->error('File "design/' . $this->frontTemplateConfig->getTheme() . '/html/cart_purchases_order.tpl" not found');
+        }
+        
         if (is_file('design/' . $this->frontTemplateConfig->getTheme() . '/html/pop_up_cart.tpl')) {
             $result['pop_up_cart'] = $this->design->fetch('pop_up_cart.tpl');
         } else {
